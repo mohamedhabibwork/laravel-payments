@@ -5,6 +5,7 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mohamedhabibwork/laravel-payments/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mohamedhabibwork/laravel-payments/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mohamedhabibwork/laravel-payments.svg?style=flat-square)](https://packagist.org/packages/mohamedhabibwork/laravel-payments)
 [![CodeFactor](https://www.codefactor.io/repository/github/mohamedhabibwork/laravel-payments/badge)](https://www.codefactor.io/repository/github/mohamedhabibwork/laravel-payments)
+
 implementing the payment gateways in laravel (fawry, paymob, tap, hyperpay)
 
 [//]: # (## Support us)

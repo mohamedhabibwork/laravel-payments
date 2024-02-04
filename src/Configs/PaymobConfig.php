@@ -59,20 +59,20 @@ class PaymobConfig implements Arrayable, ConfigInterface, Jsonable
     public function toArray(): array
     {
         return [
-            'api_key'               => $this->api_key,
-            'currency'              => $this->currency,
-            'integration_id'        => $this->integration_id,
-            'iframe_id'             => $this->iframe_id,
-            'hmac'                  => $this->hmac,
+            'api_key' => $this->api_key,
+            'currency' => $this->currency,
+            'integration_id' => $this->integration_id,
+            'iframe_id' => $this->iframe_id,
+            'hmac' => $this->hmac,
             'wallet_integration_id' => $this->wallet_integration_id,
-            'wallet_iframe_id'      => $this->wallet_iframe_id,
-            'kiosk_integration_id'  => $this->kiosk_integration_id,
-            'kiosk_iframe_id'       => $this->kiosk_iframe_id,
-            'valu_integration_id'   => $this->valu_integration_id,
-            'valu_iframe_id'        => $this->valu_iframe_id,
-            'cash_integration_id'   => $this->cash_integration_id,
-            'expiration'            => $this->expiration,
-            'is_live'               => $this->is_live,
+            'wallet_iframe_id' => $this->wallet_iframe_id,
+            'kiosk_integration_id' => $this->kiosk_integration_id,
+            'kiosk_iframe_id' => $this->kiosk_iframe_id,
+            'valu_integration_id' => $this->valu_integration_id,
+            'valu_iframe_id' => $this->valu_iframe_id,
+            'cash_integration_id' => $this->cash_integration_id,
+            'expiration' => $this->expiration,
+            'is_live' => $this->is_live,
         ];
     }
 

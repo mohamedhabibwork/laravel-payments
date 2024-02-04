@@ -6,7 +6,7 @@ use Habib\LaravelPayments\Gateways\PaymobGateway;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-class PaymobConfig implements ConfigInterface, Arrayable,Jsonable
+class PaymobConfig implements Arrayable, ConfigInterface, Jsonable
 {
     public function __construct(
         public string $api_key,
@@ -75,6 +75,7 @@ class PaymobConfig implements ConfigInterface, Arrayable,Jsonable
             'is_live' => $this->is_live,
         ];
     }
+
     public function toJson($options = 0): bool|string
     {
         return json_encode($this->toArray(), $options);

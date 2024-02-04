@@ -9,19 +9,18 @@ use Illuminate\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-class HyperPayConfig extends Config implements ConfigInterface, Arrayable, Jsonable
+class HyperPayConfig extends Config implements Arrayable, ConfigInterface, Jsonable
 {
     public function __construct(
-        public string  $url,
-        public string  $token,
-        public string  $credit_entity_id,
+        public string $url,
+        public string $token,
+        public string $credit_entity_id,
         public ?string $mada_entity_id = null,
         public ?string $applepay_entity_id = null,
         public ?string $stcpay_entity_id = null,
         public ?string $currency = 'SAR',
-        public bool    $is_live = false,
-    )
-    {
+        public bool $is_live = false,
+    ) {
     }
 
     public static function initConfig(Repository $config): ConfigInterface

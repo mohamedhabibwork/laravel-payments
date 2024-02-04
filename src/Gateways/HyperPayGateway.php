@@ -108,7 +108,7 @@ class HyperPayGateway extends Gateway
             'paymentBrand' => $paymentBrand,
             'result_code' => $response->json('result.code'),
             'data' => $request,
-            'amount' => number_format($amount, 2, '.', '')
+            'amount' => number_format($amount, 2, '.', ''),
         ];
     }
 

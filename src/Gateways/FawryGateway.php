@@ -34,10 +34,10 @@ class FawryGateway extends Gateway
                     'price' => number_format($amount, 2, '.', ''), //item price
                 ],
             ];
-        }else{
-            $amount = array_sum(array_map(function ($item){
+        } else {
+            $amount = array_sum(array_map(function ($item) {
                 return $item['price'] * $item['quantity'];
-            },$items));
+            }, $items));
         }
 
         $fields = [
@@ -59,13 +59,12 @@ class FawryGateway extends Gateway
             'orderId' => $order_id,
             'message' => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
             'data' => $fields,
-            'amount' => number_format($amount, 2, '.', '')
+            'amount' => number_format($amount, 2, '.', ''),
         ];
     }
 
     /**
      * @param array{merchantCode:string,merchantRefNum:string,customerProfileId:string,returnUrl:string,chargeItems:array{itemId:string,quantity:string,price:string}[],signature:string $fields
-     * @return string
      */
     private function generateSignature(array $fields): string
     {
@@ -86,25 +85,25 @@ class FawryGateway extends Gateway
     }
 
     /**
-     * @param array{chargeResponse:string} $request
+     * @param  array{chargeResponse:string}  $request
      * @return array|void
      */
     public function verify(array $request)
     {
-        if (isset($request['chargeResponse'])){
+        if (isset($request['chargeResponse'])) {
             $res = json_decode($request['chargeResponse'], true);
-        }else{
+        } else {
             $res = $request;
         }
         $reference_id = $res['merchantRefNumber'];
 
-        $hash = hash('sha256', $this->config->merchant . $reference_id . $this->config->secret);
+        $hash = hash('sha256', $this->config->merchant.$reference_id.$this->config->secret);
 
-        $response = $this->http->get('ECommerceWeb/Fawry/payments/status?' . http_build_query([
-                'merchantCode' => $this->config->merchant,
-                'merchantRefNumber' => $reference_id,
-                'signature' => $hash,
-            ]));
+        $response = $this->http->get('ECommerceWeb/Fawry/payments/status?'.http_build_query([
+            'merchantCode' => $this->config->merchant,
+            'merchantRefNumber' => $reference_id,
+            'signature' => $hash,
+        ]));
 
         if ($response->offsetGet('statusCode') == 200 && $response->offsetGet('paymentStatus') == 'PAID') {
             return [
@@ -130,8 +129,7 @@ class FawryGateway extends Gateway
         ?string $first_name = null,
         ?string $last_name = null,
         ?string $language = 'en',
-    ): self
-    {
+    ): self {
         return $this->setUser(new FawryUser(
             id: $id ?? $this->generateCode('user'),
             email: $email ?? '',

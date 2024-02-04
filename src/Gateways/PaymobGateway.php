@@ -109,7 +109,7 @@ class PaymobGateway extends Gateway
 
     public function makeOrder(string $token, float $amount, ?string $merchant_order_id = null, array $items = []): array
     {
-        $merchant_order_id ??= uniqid($this->generateCode() . '-');
+        $merchant_order_id ??= uniqid($this->generateCode().'-');
 
         $response = $this->http->post('ecommerce/orders', [
             'auth_token' => $token,
@@ -236,7 +236,6 @@ class PaymobGateway extends Gateway
             'product_description' => $product_description,
         ]);
 
-
         return [
             'status' => $status = $response->successful(),
             'message' => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
@@ -246,7 +245,7 @@ class PaymobGateway extends Gateway
     }
 
     /**
-     * @param array{amount_cents: string, created_at: string, currency: string, error_occured: string, has_parent_transaction: string, id: string, integration_id: string, is_3d_secure: string, is_auth: string, is_capture: string, is_refunded: string, is_standalone_payment: string, is_voided: string, order: string, owner: string, pending: string, source_data_pan: string, source_data_sub_type: string, source_data_type: string, success: string} $data
+     * @param  array{amount_cents: string, created_at: string, currency: string, error_occured: string, has_parent_transaction: string, id: string, integration_id: string, is_3d_secure: string, is_auth: string, is_capture: string, is_refunded: string, is_standalone_payment: string, is_voided: string, order: string, owner: string, pending: string, source_data_pan: string, source_data_sub_type: string, source_data_type: string, success: string}  $data
      */
     public function verify(array $data): array
     {
@@ -254,7 +253,7 @@ class PaymobGateway extends Gateway
 
         $string = '';
         foreach ($keys as $key) {
-            $string .= (string)data_get($data, $key);
+            $string .= (string) data_get($data, $key);
         }
 
         if (hash_hmac('sha512', $string, $this->config->hmac)) {
@@ -284,8 +283,7 @@ class PaymobGateway extends Gateway
         ?string $phone = null,
         ?string $first_name = null,
         ?string $last_name = null,
-    ): self
-    {
+    ): self {
         return $this->setUser(new PaymobUser(
             email: $email ?? '',
             phone: $phone ?? '',

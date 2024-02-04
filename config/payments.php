@@ -15,7 +15,7 @@ return [
         'valu_iframe_id' => env('PAYMOB_VALU_IFRAME_ID'),
         'cash_integration_id' => env('PAYMOB_CASH_INTEGRATION_ID'),
         'expiration' => env('PAYMOB_EXPIRATION', 36000),
-        'is_live' => (bool)env('PAYMOB_IS_LIVE', env('APP_ENV') === 'production'),
+        'is_live' => (bool) env('PAYMOB_IS_LIVE', env('APP_ENV') === 'production'),
     ],
     'fawry' => [
         'merchant' => env('FAWRY_MERCHANT'),
@@ -24,11 +24,11 @@ return [
         'display_mode' => env('FAWRY_DISPLAY_MODE', 'POPUP'), //  values [POPUP, INSIDE_PAGE, SIDE_PAGE , SEPARATED]
         'pay_mode' => env('FAWRY_PAY_MODE', 'CARD'), // values ['CashOnDelivery', 'PayAtFawry', 'MWALLET', 'CARD' , 'VALU']
         'expiry' => env('FAWRY_EXPIRY', 72), // hours
-        'is_live' => $is_live = (bool)env('FAWRY_IS_LIVE', env('APP_ENV') === 'production'),
+        'is_live' => $is_live = (bool) env('FAWRY_IS_LIVE', env('APP_ENV') === 'production'),
         'url' => $is_live ? env('FAWRY_LIVE_URL', 'https://www.atfawry.com') : env('FAWRY_TEST_URL', 'https://atfawry.fawrystaging.com'),
     ],
     'tap' => [
-        'is_live' => (bool)env('TAP_IS_LIVE', env('APP_ENV') === 'production'),
+        'is_live' => (bool) env('TAP_IS_LIVE', env('APP_ENV') === 'production'),
         'lang' => env('TAP_LANG', 'auto'), // en, ar, auto
         'test' => [
             'secret' => env('TAP_TEST_SECRET', 'sk_test_XKokBfNWv6FIYuTMg5sLPjhJ'),
@@ -42,7 +42,7 @@ return [
         ],
     ],
     'hyperpay' => [
-        'is_live' => $is_live = (bool)env('HYPERPAY_IS_LIVE', env('APP_ENV') === 'production'), // true or false
+        'is_live' => $is_live = (bool) env('HYPERPAY_IS_LIVE', env('APP_ENV') === 'production'), // true or false
         'url' => $is_live ? env('HYPERPAY_LIVE_URL', 'https://oppwa.com') : env('HYPERPAY_TEST_URL', 'https://eu-test.oppwa.com'),
         'token' => env('HYPERPAY_TOKEN', 'OGE4Mjk0MTc0ZDA1OTViYjAxNGQwNWQ4MjllNzAxZDF8OVRuSlBjMm45aA=='),
         'credit_id' => env('HYPERPAY_CREDIT_ID', '8a8294174d0595bb014d05d829cb01cd'),

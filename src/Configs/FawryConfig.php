@@ -8,7 +8,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-class FawryConfig implements ConfigInterface, Arrayable,Jsonable
+class FawryConfig implements Arrayable, ConfigInterface, Jsonable
 {
     public string $url = 'https://atfawry.fawrystaging.com/';
 
@@ -18,11 +18,10 @@ class FawryConfig implements ConfigInterface, Arrayable,Jsonable
         public string $returnUrl = '',
         public string $display_mode = 'POPUP', //  [POPUP, INSIDE_PAGE, SIDE_PAGE , SEPARATED]
         public string $pay_mode = 'CARD', // ['CashOnDelivery', 'PayAtFawry', 'MWALLET', 'CARD' , 'VALU']
-        public int    $expiry = 72, // hours
-        public bool   $is_live = false,
-        ?string       $url = null,
-    )
-    {
+        public int $expiry = 72, // hours
+        public bool $is_live = false,
+        ?string $url = null,
+    ) {
         if ($url) {
             $this->url = $url;
         } elseif (is_null($url) && $this->is_live) {
@@ -67,6 +66,7 @@ class FawryConfig implements ConfigInterface, Arrayable,Jsonable
             'url' => $this->url,
         ];
     }
+
     public function toJson($options = 0): bool|string
     {
         return json_encode($this->toArray(), $options);

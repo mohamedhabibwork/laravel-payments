@@ -8,7 +8,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-class TapConfig implements ConfigInterface, Arrayable,Jsonable
+class TapConfig implements Arrayable, ConfigInterface, Jsonable
 {
     public string $url = 'https://api.tap.company/v2/';
 
@@ -17,9 +17,8 @@ class TapConfig implements ConfigInterface, Arrayable,Jsonable
         public string $public,
         public string $currency,
         public string $lang,
-        public bool   $is_live = false,
-    )
-    {
+        public bool $is_live = false,
+    ) {
 
     }
 
@@ -36,6 +35,7 @@ class TapConfig implements ConfigInterface, Arrayable,Jsonable
     public static function initConfig(Repository $config): ConfigInterface
     {
         $is_live = $config->get('payments.tap.is_live');
+
         return new self(
             secret: $is_live ? $config->get('payments.tap.live.secret') : $config->get('payments.tap.test.secret'),
             public: $is_live ? $config->get('payments.tap.live.public') : $config->get('payments.tap.test.public'),
@@ -56,7 +56,6 @@ class TapConfig implements ConfigInterface, Arrayable,Jsonable
             'is_live' => $this->is_live,
         ];
     }
-
 
     public function toJson($options = 0): bool|string
     {

@@ -39,19 +39,19 @@ class PaymobGateway extends Gateway
         $response = $this->http->post('acceptance/payments/pay', [
             'source' => [
                 'identifier' => $this->config->is_live ? $this->user->phone : '01010101010',
-                'subtype' => 'WALLET',
+                'subtype'    => 'WALLET',
             ],
             'payment_token' => $paymentToken['token'],
         ]);
 
         return [
-            'status' => $status = $response->successful(),
-            'message' => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
-            'orderId' => $paymentToken['order_id'],
-            'url' => $response->json('redirect_url'),
-            'amount' => $amount / 100,
+            'status'   => $status = $response->successful(),
+            'message'  => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
+            'orderId'  => $paymentToken['order_id'],
+            'url'      => $response->json('redirect_url'),
+            'amount'   => $amount / 100,
             'currency' => $this->config->currency,
-            'data' => $response->json(),
+            'data'     => $response->json(),
         ];
     }
 
@@ -69,29 +69,29 @@ class PaymobGateway extends Gateway
         $order = $this->makeOrder($token, $amount, $order_id, $items);
 
         $billing_data = array_merge($billing_data ?? [], [
-            'apartment' => 'NA',
-            'email' => $this->user->email,
-            'floor' => 'NA',
-            'first_name' => $this->user->first_name,
-            'street' => 'NA',
-            'building' => 'NA',
-            'phone_number' => $this->user->phone,
+            'apartment'       => 'NA',
+            'email'           => $this->user->email,
+            'floor'           => 'NA',
+            'first_name'      => $this->user->first_name,
+            'street'          => 'NA',
+            'building'        => 'NA',
+            'phone_number'    => $this->user->phone,
             'shipping_method' => 'NA',
-            'postal_code' => 'NA',
-            'city' => 'NA',
-            'country' => 'NA',
-            'last_name' => $this->user->last_name,
-            'state' => 'NA',
+            'postal_code'     => 'NA',
+            'city'            => 'NA',
+            'country'         => 'NA',
+            'last_name'       => $this->user->last_name,
+            'state'           => 'NA',
         ]);
 
         $request = [
-            'auth_token' => $token,
-            'expiration' => $this->config?->expiration ?? 36000,
-            'amount_cents' => $order['amount_cents'] ?? $amount,
-            'order_id' => $order['id'],
-            'billing_data' => $billing_data,
-            'currency' => $this->config->currency,
-            'integration_id' => $integration_id,
+            'auth_token'           => $token,
+            'expiration'           => $this->config?->expiration ?? 36000,
+            'amount_cents'         => $order['amount_cents'] ?? $amount,
+            'order_id'             => $order['id'],
+            'billing_data'         => $billing_data,
+            'currency'             => $this->config->currency,
+            'integration_id'       => $integration_id,
             'lock_order_when_paid' => true,
         ];
 
@@ -102,7 +102,7 @@ class PaymobGateway extends Gateway
         $response = $this->http->post('acceptance/payment_keys', $request);
 
         return [
-            'token' => $response->json('token'),
+            'token'    => $response->json('token'),
             'order_id' => $order['id'] ?? '',
         ];
     }
@@ -112,12 +112,12 @@ class PaymobGateway extends Gateway
         $merchant_order_id ??= uniqid($this->generateCode().'-');
 
         $response = $this->http->post('ecommerce/orders', [
-            'auth_token' => $token,
-            'delivery_needed' => false,
-            'amount_cents' => $amount,
-            'currency' => $this->config->currency,
+            'auth_token'        => $token,
+            'delivery_needed'   => false,
+            'amount_cents'      => $amount,
+            'currency'          => $this->config->currency,
             'merchant_order_id' => $merchant_order_id,
-            'items' => $items,
+            'items'             => $items,
         ]);
 
         return $response->json();
@@ -134,19 +134,19 @@ class PaymobGateway extends Gateway
         $response = $this->http->post('acceptance/payments/pay', [
             'source' => [
                 'identifier' => 'cash',
-                'subtype' => 'CASH',
+                'subtype'    => 'CASH',
             ],
             'payment_token' => $paymentToken['token'],
         ]);
 
         return [
-            'status' => $status = $response->successful(),
-            'message' => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
-            'orderId' => $paymentToken['order_id'],
-            'url' => $response->json('redirect_url'),
-            'amount' => $amount / 100,
+            'status'   => $status = $response->successful(),
+            'message'  => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
+            'orderId'  => $paymentToken['order_id'],
+            'url'      => $response->json('redirect_url'),
+            'amount'   => $amount / 100,
             'currency' => $this->config->currency,
-            'data' => $response->json(),
+            'data'     => $response->json(),
         ];
     }
 
@@ -161,19 +161,19 @@ class PaymobGateway extends Gateway
         $response = $this->http->post('acceptance/payments/pay', [
             'source' => [
                 'identifier' => 'AGGREGATOR',
-                'subtype' => 'AGGREGATOR',
+                'subtype'    => 'AGGREGATOR',
             ],
             'payment_token' => $paymentToken['token'],
         ]);
 
         return [
-            'status' => $status = $response->successful(),
-            'message' => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
-            'orderId' => $paymentToken['order_id'],
-            'url' => $response->json('redirect_url'),
-            'amount' => $amount / 100,
+            'status'   => $status = $response->successful(),
+            'message'  => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
+            'orderId'  => $paymentToken['order_id'],
+            'url'      => $response->json('redirect_url'),
+            'amount'   => $amount / 100,
             'currency' => $this->config->currency,
-            'data' => $response->json(),
+            'data'     => $response->json(),
         ];
     }
 
@@ -186,10 +186,10 @@ class PaymobGateway extends Gateway
         $paymentToken = $this->getPaymentKey($authToken, $amount, $this->config->integration_id, $order_id, $subscription_plan_id, $billing_data, $items);
 
         return [
-            'order_id' => $paymentToken['order_id'],
+            'order_id'     => $paymentToken['order_id'],
             'redirect_url' => "https://accept.paymobsolutions.com/api/acceptance/iframes/{$this->config->iframe_id}?payment_token={$paymentToken['token']}",
-            'amount' => $amount / 100,
-            'currency' => $this->config->currency,
+            'amount'       => $amount / 100,
+            'currency'     => $this->config->currency,
         ];
     }
 
@@ -202,9 +202,9 @@ class PaymobGateway extends Gateway
         $paymentToken = $this->getPaymentKey($authToken, $amount, $this->config->valu_integration_id, $order_id, $subscription_plan_id, $billing_data, $items);
 
         return [
-            'orderId' => $paymentToken['order_id'],
-            'url' => "https://accept.paymobsolutions.com/api/acceptance/iframes/{$this->config->valu_iframe_id}?payment_token={$paymentToken['token']}",
-            'amount' => $amount / 100,
+            'orderId'  => $paymentToken['order_id'],
+            'url'      => "https://accept.paymobsolutions.com/api/acceptance/iframes/{$this->config->valu_iframe_id}?payment_token={$paymentToken['token']}",
+            'amount'   => $amount / 100,
             'currency' => $this->config->currency,
         ];
     }
@@ -225,27 +225,27 @@ class PaymobGateway extends Gateway
         $authToken = $this->getAuthToken();
 
         $response = $this->http->post('ecommerce/products', [
-            'auth_token' => $authToken,
-            'product_name' => $product_name,
-            'amount_cents' => $amount,
-            'currency' => $this->config->currency,
-            'inventory' => '1',
-            'delivery_needed' => 'false',
-            'integrations' => array_values(array_filter($integrations)),
+            'auth_token'          => $authToken,
+            'product_name'        => $product_name,
+            'amount_cents'        => $amount,
+            'currency'            => $this->config->currency,
+            'inventory'           => '1',
+            'delivery_needed'     => 'false',
+            'integrations'        => array_values(array_filter($integrations)),
             'allow_quantity_edit' => 'false',
             'product_description' => $product_description,
         ]);
 
         return [
-            'status' => $status = $response->successful(),
+            'status'  => $status = $response->successful(),
             'message' => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
-            'id' => $response->json('id'),
-            'url' => $response->json('product_url'),
+            'id'      => $response->json('id'),
+            'url'     => $response->json('product_url'),
         ];
     }
 
     /**
-     * @param  array{amount_cents: string, created_at: string, currency: string, error_occured: string, has_parent_transaction: string, id: string, integration_id: string, is_3d_secure: string, is_auth: string, is_capture: string, is_refunded: string, is_standalone_payment: string, is_voided: string, order: string, owner: string, pending: string, source_data_pan: string, source_data_sub_type: string, source_data_type: string, success: string}  $data
+     * @param array{amount_cents: string, created_at: string, currency: string, error_occured: string, has_parent_transaction: string, id: string, integration_id: string, is_3d_secure: string, is_auth: string, is_capture: string, is_refunded: string, is_standalone_payment: string, is_voided: string, order: string, owner: string, pending: string, source_data_pan: string, source_data_sub_type: string, source_data_type: string, success: string} $data
      */
     public function verify(array $data): array
     {
@@ -258,21 +258,21 @@ class PaymobGateway extends Gateway
 
         if (hash_hmac('sha512', $string, $this->config->hmac)) {
             return [
-                'status' => true,
+                'status'  => true,
                 'message' => 'Verified',
             ];
         }
 
         return [
-            'status' => false,
+            'status'  => false,
             'message' => match (request()->string('txn_response_code')) {
                 'BLOCKED', 'B' => __('Process Has Been Blocked From System'),
                 '5', '6051' => __('Balance is not enough'),
-                'F' => __('Your card is not authorized with 3D secure'),
-                '7' => __('Incorrect card expiration date'),
-                '2' => __('Declined'),
-                '637' => __('The OTP number was entered incorrectly'),
-                '11' => __('Security checks are not passed by the system'),
+                'F'     => __('Your card is not authorized with 3D secure'),
+                '7'     => __('Incorrect card expiration date'),
+                '2'     => __('Declined'),
+                '637'   => __('The OTP number was entered incorrectly'),
+                '11'    => __('Security checks are not passed by the system'),
                 default => __('An error occurred while executing the operation'),
             },
         ];

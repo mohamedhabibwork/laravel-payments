@@ -55,14 +55,14 @@ class HyperPayConfig extends Config implements Arrayable, ConfigInterface, Jsona
     public function toArray(): array
     {
         return [
-            'url' => $this->url,
-            'token' => $this->token,
-            'credit_entity_id' => $this->credit_entity_id,
-            'mada_entity_id' => $this->mada_entity_id,
+            'url'                => $this->url,
+            'token'              => $this->token,
+            'credit_entity_id'   => $this->credit_entity_id,
+            'mada_entity_id'     => $this->mada_entity_id,
             'applepay_entity_id' => $this->applepay_entity_id,
-            'stcpay_entity_id' => $this->stcpay_entity_id,
-            'currency' => $this->currency,
-            'is_live' => $this->is_live,
+            'stcpay_entity_id'   => $this->stcpay_entity_id,
+            'currency'           => $this->currency,
+            'is_live'            => $this->is_live,
         ];
     }
 }

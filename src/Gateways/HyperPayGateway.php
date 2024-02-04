@@ -57,7 +57,8 @@ class HyperPayGateway extends Gateway
     }
 
     /**
-     * @param  array  $options  {order_id,success_url,failed_url}
+     * @param array $options {order_id,success_url,failed_url}
+     *
      * @return array{checkoutId:string,paymentBrand:string,result_code:string,status:bool,orderId:string,checkoutUrl:string,brand:string}
      */
     public function pay(float $amount, string $paymentBrand, array $options = []): array
@@ -65,19 +66,19 @@ class HyperPayGateway extends Gateway
         $entityId = $options['entityId'] ?? $this->guessEntityId($paymentBrand);
         $orderId = $options['orderId'] ?? $this->generateCode('order-'.str($paymentBrand)->slug()->toString());
         $request = [
-            'entityId' => $entityId,
-            'amount' => $amount,
-            'currency' => $options['currency'] ?? $this->config->currency,
-            'paymentType' => $options['paymentType'] ?? 'DB',
+            'entityId'              => $entityId,
+            'amount'                => $amount,
+            'currency'              => $options['currency'] ?? $this->config->currency,
+            'paymentType'           => $options['paymentType'] ?? 'DB',
             'merchantTransactionId' => $orderId,
-            'billing.street1' => $options['street1'] ?? 'riyadh',
-            'billing.city' => $options['city'] ?? 'riyadh',
-            'billing.state' => $options['state'] ?? 'riyadh',
-            'billing.country' => $options['country'] ?? 'SA',
-            'billing.postcode' => $options['postcode'] ?? '123456',
-            'customer.email' => $this->user->email,
-            'customer.givenName' => $this->user->first_name,
-            'customer.surname' => $this->user->last_name,
+            'billing.street1'       => $options['street1'] ?? 'riyadh',
+            'billing.city'          => $options['city'] ?? 'riyadh',
+            'billing.state'         => $options['state'] ?? 'riyadh',
+            'billing.country'       => $options['country'] ?? 'SA',
+            'billing.postcode'      => $options['postcode'] ?? '123456',
+            'customer.email'        => $this->user->email,
+            'customer.givenName'    => $this->user->first_name,
+            'customer.surname'      => $this->user->last_name,
         ];
 
         if ($options['createRegistration'] ?? false) {
@@ -87,7 +88,7 @@ class HyperPayGateway extends Gateway
             $request['testMode'] = $options['testMode'];
         }
 
-        if (! $this->config->is_live) {
+        if (!$this->config->is_live) {
             $request['customParameters[3DS2_enrolled]'] = 'true';  // remove it in live
         }
 
@@ -99,16 +100,16 @@ class HyperPayGateway extends Gateway
         $checkoutId = $response->json('id');
 
         return [
-            'brand' => $this->guessBrand($paymentBrand),
-            'status' => $status = $this->isSuccess($response->json('result.code')),
-            'message' => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
-            'orderId' => $orderId,
-            'url' => trim($this->config->url, '/')."/v1/paymentWidgets.js?checkoutId={$checkoutId}",
-            'checkoutId' => $checkoutId,
+            'brand'        => $this->guessBrand($paymentBrand),
+            'status'       => $status = $this->isSuccess($response->json('result.code')),
+            'message'      => $status ? __('PAYMENT_DONE') : __('PAYMENT_FAILED'),
+            'orderId'      => $orderId,
+            'url'          => trim($this->config->url, '/')."/v1/paymentWidgets.js?checkoutId={$checkoutId}",
+            'checkoutId'   => $checkoutId,
             'paymentBrand' => $paymentBrand,
-            'result_code' => $response->json('result.code'),
-            'data' => $request,
-            'amount' => number_format($amount, 2, '.', ''),
+            'result_code'  => $response->json('result.code'),
+            'data'         => $request,
+            'amount'       => number_format($amount, 2, '.', ''),
         ];
     }
 
@@ -123,10 +124,10 @@ class HyperPayGateway extends Gateway
 
         return match (mb_strtolower($source)) {
             //            'visa', 'mastercard', 'amex', 'visa master' => $this->config->credit_entity_id,
-            'mada' => $this->config->mada_entity_id,
+            'mada'     => $this->config->mada_entity_id,
             'applepay' => $this->config->applepay_entity_id,
-            'stcpay' => $this->config->stcpay_entity_id,
-            default => $this->config->credit_entity_id,
+            'stcpay'   => $this->config->stcpay_entity_id,
+            default    => $this->config->credit_entity_id,
         } ?? $this->config->credit_entity_id;
     }
 
@@ -151,11 +152,11 @@ class HyperPayGateway extends Gateway
         }
 
         return match (mb_strtolower($source)) {
-            'mada' => 'MADA',
+            'mada'     => 'MADA',
             'applepay' => 'APPLEPAY',
-            'stcpay' => 'STCPAY',
+            'stcpay'   => 'STCPAY',
             'visa', 'mastercard', 'visa master' => 'VISA MASTER',
-            'amex' => 'AMEX',
+            'amex'  => 'AMEX',
             'meeza' => 'MEEZA',
             default => mb_strtoupper($source),
         };
@@ -167,11 +168,11 @@ class HyperPayGateway extends Gateway
         $response = $this->http->get("v1/checkouts/{$checkoutId}/payment", compact('entityId'));
 
         return [
-            'status' => $this->isSuccess($response->json('result.code')),
+            'status'      => $this->isSuccess($response->json('result.code')),
             'result_code' => $response->json('result.code'),
-            'brand' => $paymentBrand,
-            'checkoutId' => $response->json('id'),
-            'data' => $response->json(),
+            'brand'       => $paymentBrand,
+            'checkoutId'  => $response->json('id'),
+            'data'        => $response->json(),
         ];
     }
 
@@ -181,11 +182,11 @@ class HyperPayGateway extends Gateway
         $response = $this->http->get($resourcePath, compact('entityId'));
 
         return [
-            'status' => $this->isSuccess($response->json('result.code')),
+            'status'      => $this->isSuccess($response->json('result.code')),
             'result_code' => $response->json('result.code'),
-            'brand' => $paymentBrand,
-            'checkoutId' => $response->json('id'),
-            'data' => $response->json(),
+            'brand'       => $paymentBrand,
+            'checkoutId'  => $response->json('id'),
+            'data'        => $response->json(),
         ];
     }
 

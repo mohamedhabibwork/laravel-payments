@@ -19,7 +19,6 @@ class TapConfig implements Arrayable, ConfigInterface, Jsonable
         public string $lang,
         public bool $is_live = false,
     ) {
-
     }
 
     public function getGateway(): GatewayInterface
@@ -48,12 +47,12 @@ class TapConfig implements Arrayable, ConfigInterface, Jsonable
     public function toArray(): array
     {
         return [
-            'url' => $this->url,
-            'secret' => $this->secret,
-            'public' => $this->public,
+            'url'      => $this->url,
+            'secret'   => $this->secret,
+            'public'   => $this->public,
             'currency' => $this->currency,
-            'lang' => $this->lang,
-            'is_live' => $this->is_live,
+            'lang'     => $this->lang,
+            'is_live'  => $this->is_live,
         ];
     }
 

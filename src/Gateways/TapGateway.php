@@ -28,7 +28,6 @@ class TapGateway extends Gateway
 
     public function pay(float $amount, string $post_url, string $redirect_url, ?string $source = 'src_all', array $options = [])
     {
-
         $orderId = $options['orderId'] ?? $this->generateCode();
 
         $response = $this->http->post('charges', [

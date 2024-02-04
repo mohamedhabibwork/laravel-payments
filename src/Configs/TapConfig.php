@@ -19,7 +19,6 @@ class TapConfig implements Arrayable, ConfigInterface, Jsonable
         public string $lang,
         public bool $is_live = false,
     ) {
-
     }
 
     public function getGateway(): GatewayInterface

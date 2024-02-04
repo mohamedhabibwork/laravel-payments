@@ -7,7 +7,7 @@ use Habib\LaravelPayments\Users\FawryUser;
 use Illuminate\Support\Facades\Http;
 
 /**
- * Class FawryGateway
+ * Class FawryGateway.
  *
  * @property-read FawryConfig $config
  * @property-read FawryUser $user

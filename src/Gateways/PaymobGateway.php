@@ -7,7 +7,7 @@ use Habib\LaravelPayments\Users\PaymobUser;
 use Illuminate\Support\Facades\Http;
 
 /**
- * Class PaymobGateway
+ * Class PaymobGateway.
  *
  * @property-read PaymobConfig $config
  *

@@ -1,11 +1,11 @@
-.idea
+/.idea
 .phpunit.cache
-build
+/build
 composer.lock
-coverage
-docs
+/coverage
+/docs
 phpunit.xml
 phpstan.neon
 testbench.yaml
-vendor
-node_modules
+/vendor
+/node_modules

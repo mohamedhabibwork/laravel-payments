@@ -56,14 +56,14 @@ class FawryConfig implements Arrayable, ConfigInterface, Jsonable
     public function toArray(): array
     {
         return [
-            'merchant'     => $this->merchant,
-            'secret'       => $this->secret,
-            'returnUrl'    => $this->returnUrl,
+            'merchant' => $this->merchant,
+            'secret' => $this->secret,
+            'returnUrl' => $this->returnUrl,
             'display_mode' => $this->display_mode,
-            'pay_mode'     => $this->pay_mode,
-            'expiry'       => $this->expiry,
-            'is_live'      => $this->is_live,
-            'url'          => $this->url,
+            'pay_mode' => $this->pay_mode,
+            'expiry' => $this->expiry,
+            'is_live' => $this->is_live,
+            'url' => $this->url,
         ];
     }
 
